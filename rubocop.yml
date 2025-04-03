@@ -1,0 +1,153 @@
+# We borrowed some configuration and started with Rails' Rubocop configuration:
+# https://github.com/rails/rails/blob/main/.rubocop.yml
+require:
+  - rubocop-factory_bot
+  - rubocop-performance
+
+plugins:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.2
+  # Accepting new cops is easier than enabling them one by one
+  NewCops: enable
+  Exclude:
+    # Bin folder contains generated binstubs that don't need checking
+    - bin/*
+    # Schemas are auto-generated and should not be included
+    - db/schema.rb
+    # Node modules aren't part of the Rails application
+    - node_modules/**/*
+    # Vendor directory holds code not written nor controlled by us
+    - vendor/**/*
+
+Performance:
+  Exclude:
+    - test/**/*
+
+Rails:
+  Enabled: true
+  Exclude:
+    # Files in bin, and deploy scripts are not written to run as part of the app
+    - bin/*
+    - config/deploy/*
+
+# Prefer assert_not over assert !
+Rails/AssertNot:
+  Include:
+    - test/**/*
+
+Rails/RakeEnvironment:
+  # This cops tells us to add :environment as a dependency to all tasks, but
+  # that's just slow and unnecessary. It also triggers for Capistrano tasks
+  # which is just a false match.
+  Enabled: false
+
+# Prefer assert_not_x over refute_x
+Rails/RefuteMethods:
+  Include:
+    - test/**/*
+
+Layout/EmptyLineBetweenDefs:
+  # Sometimes you want to write a couple of one-liners just immediately below each other. This
+  # configuration setting allows:
+  #
+  #   class SomeError < StandardError; end
+  #   class AnotherError < StandardError; end
+  AllowAdjacentOneLineDefs: true
+
+# Align `end` with the matching keyword or starting expression except for
+# assignments, where it should be aligned with the LHS.
+Layout/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: variable
+  AutoCorrect: true
+
+# 120 characters should be enough to write lines of code. Otherwise they may
+# need to be split up to ensure readability.
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    # Long blocks in config files aren’t really a problem.
+    - config/**/*
+    # Seeds can have long blocks for convenience.
+    - db/seeds.rb
+    - test/factories.rb
+    # Long blocks in Rake are part of the DSL.
+    - lib/tasks/*
+    # Long blocks in tests are part of the DSL and don't have to be broken down in smaller parts.
+    - test/**/*_test.rb
+
+Metrics/ClassLength:
+  Exclude:
+    # Test classes may become much longer than the default 100 lines due to the vast amount of
+    # tests they may contain.
+    - test/**/*
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    # change methods can become quite long with create_table and everything
+    - db/migrate/**
+
+Naming/MemoizedInstanceVariableName:
+  # Preceed memoized variables with an underscore in functions like this:
+  # def user
+  #   @_user ||= User.find(id)
+  # end
+  # Underscored variables usually show that you should not directly access it
+  # and that they're meant for internal use. Underscoring a memoized variable
+  # shows that you should use the same-named function instead to ensure the
+  # existence of the thing you're accessing. If, in this example, you need the
+  # user to be available in views, use `helper_method :user`.
+  EnforcedStyleForLeadingUnderscores: required
+
+# This cop doesn't allow us to define methods like `has_token`, but `has_` as
+# a prefix is allowed. However, do write `active?` instead of `is_active`
+Naming/PredicateName:
+  NamePrefix:
+    - is_
+    - have_
+  ForbiddenPrefixes:
+    - is_
+
+Style/Documentation:
+  # Documentation helps your peers understand what the purpose of a particular
+  # piece of code that you wrote is, or why it behaves how it behaves. We should
+  # very much encourage each other to add this kind of explaining documentation.
+  # However it may not be always required so we disable the cop. But please
+  # think about your peers, and help them understand the reasoning behind some
+  # code, since it would also benefit you!
+  Enabled: false
+
+Style/EmptyMethod:
+  # Ruby is a language where you don't use semi-colons in general.
+  EnforcedStyle: expanded
+
+Style/FormatString:
+  # Prefer writing string formatting as "Some %<foo>s" % { foo: "var" }. With long translation
+  # strings it may become less readable by having to wrap _("...") in format().
+  EnforcedStyle: percent
+
+Style/Lambda:
+  # Prefer writing lambda's using ->(var) { ... } instead of lambda (var) { ... }
+  EnforcedStyle: literal
+
+Style/IfUnlessModifier:
+  # Sometimes it benefits readability by writing
+  #   if something
+  #     do_the_things
+  #   end
+  # instead of
+  #   do_the_things if something
+  Enabled: false
+
+# Check quotes usage according to lint rule below.
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes

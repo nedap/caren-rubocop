@@ -1,10 +1,8 @@
 # We borrowed some configuration and started with Rails' Rubocop configuration:
 # https://github.com/rails/rails/blob/main/.rubocop.yml
-require:
+plugins:
   - rubocop-factory_bot
   - rubocop-performance
-
-plugins:
   - rubocop-rails
 
 AllCops:

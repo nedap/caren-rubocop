@@ -6,7 +6,6 @@ plugins:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 3.2
   # Accepting new cops is easier than enabling them one by one
   NewCops: enable
   Exclude:

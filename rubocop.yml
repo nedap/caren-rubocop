@@ -18,32 +18,9 @@ AllCops:
     # Vendor directory holds code not written nor controlled by us
     - vendor/**/*
 
-Performance:
-  Exclude:
-    - test/**/*
-
-Rails:
-  Enabled: true
-  Exclude:
-    # Files in bin, and deploy scripts are not written to run as part of the app
-    - bin/*
-    - config/deploy/*
-
-# Prefer assert_not over assert !
-Rails/AssertNot:
-  Include:
-    - test/**/*
-
-Rails/RakeEnvironment:
-  # This cops tells us to add :environment as a dependency to all tasks, but
-  # that's just slow and unnecessary. It also triggers for Capistrano tasks
-  # which is just a false match.
+# We prefer `factory :foo, class: Foo do` over `factory :foo, class: "Foo" do`
+FactoryBot/FactoryClassName:
   Enabled: false
-
-# Prefer assert_not_x over refute_x
-Rails/RefuteMethods:
-  Include:
-    - test/**/*
 
 Layout/EmptyLineBetweenDefs:
   # Sometimes you want to write a couple of one-liners just immediately below each other. This
@@ -109,6 +86,33 @@ Naming/PredicateName:
     - have_
   ForbiddenPrefixes:
     - is_
+
+Performance:
+  Exclude:
+    - test/**/*
+
+Rails:
+  Enabled: true
+  Exclude:
+    # Files in bin, and deploy scripts are not written to run as part of the app
+    - bin/*
+    - config/deploy/*
+
+# Prefer assert_not over assert !
+Rails/AssertNot:
+  Include:
+    - test/**/*
+
+Rails/RakeEnvironment:
+  # This cops tells us to add :environment as a dependency to all tasks, but
+  # that's just slow and unnecessary. It also triggers for Capistrano tasks
+  # which is just a false match.
+  Enabled: false
+
+# Prefer assert_not_x over refute_x
+Rails/RefuteMethods:
+  Include:
+    - test/**/*
 
 Style/Documentation:
   # Documentation helps your peers understand what the purpose of a particular

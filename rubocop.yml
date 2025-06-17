@@ -80,7 +80,7 @@ Naming/MemoizedInstanceVariableName:
 
 # This cop doesn't allow us to define methods like `has_token`, but `has_` as
 # a prefix is allowed. However, do write `active?` instead of `is_active`
-Naming/PredicatePrefix:
+Naming/PredicateName:
   NamePrefix:
     - is_
     - have_

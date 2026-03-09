@@ -87,6 +87,11 @@ Naming/PredicatePrefix:
   ForbiddenPrefixes:
     - is_
 
+# Use a descriptive variable name when rescuing exceptions. The cop also allows
+# `_error` for unused variables.
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
 Performance:
   Exclude:
     - test/**/*

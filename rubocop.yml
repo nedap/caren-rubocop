@@ -42,6 +42,10 @@ Layout/EndAlignment:
 Layout/LineLength:
   Max: 120
 
+Lint/AssignmentInCondition:
+  # Guard conditions should be predicates, not hidden assignments.
+  AllowSafeAssignment: false
+
 Metrics/BlockLength:
   Exclude:
     # Long blocks in config files aren’t really a problem.
@@ -132,6 +136,10 @@ Style/EmptyMethod:
   # Ruby is a language where you don't use semi-colons in general.
   EnforcedStyle: expanded
 
+Style/EndlessMethod:
+  # Prefer regular multi-line method definitions for readability.
+  EnforcedStyle: disallow
+
 Style/FormatString:
   # Prefer writing string formatting as "Some %<foo>s" % { foo: "var" }. With long translation
   # strings it may become less readable by having to wrap _("...") in format().
@@ -149,6 +157,10 @@ Style/IfUnlessModifier:
   # instead of
   #   do_the_things if something
   Enabled: false
+
+Style/SingleLineMethods:
+  # Prefer regular multi-line method definitions, even for tiny bodies.
+  Enabled: true
 
 # Check quotes usage according to lint rule below.
 Style/StringLiterals:

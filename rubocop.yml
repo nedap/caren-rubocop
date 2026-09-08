@@ -8,6 +8,7 @@ plugins:
 AllCops:
   # Accepting new cops is easier than enabling them one by one
   NewCops: enable
+  TargetRubyVersion: 3.4
   Exclude:
     # Bin folder contains generated binstubs that don't need checking
     - bin/*
@@ -102,6 +103,7 @@ Performance:
 
 Rails:
   Enabled: true
+  TargetRailsVersion: 8.1
   Exclude:
     # Files in bin, and deploy scripts are not written to run as part of the app
     - bin/*

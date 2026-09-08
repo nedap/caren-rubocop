@@ -96,10 +96,6 @@ Naming/PredicatePrefix:
 Naming/RescuedExceptionsVariableName:
   PreferredName: error
 
-Performance:
-  Exclude:
-    - test/**/*
-
 Rails:
   Enabled: true
   Exclude:

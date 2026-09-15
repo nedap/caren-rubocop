@@ -28,14 +28,14 @@ limitation, and it is accepted.
 
 ## Usage
 
-This configuration sets no `TargetRubyVersion`. Specify a target in your project's
-`.rubocop.yml`:
+This configuration targets Ruby 3.4. Specify a different target in your project's
+`.rubocop.yml` when your application runs another version:
 
 ```yaml
 inherit_from: https://raw.githubusercontent.com/nedap/caren-rubocop/main/rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 3.0.2
+  TargetRubyVersion: 3.3
 ```
 
 ## Staying up to date

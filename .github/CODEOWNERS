@@ -1,0 +1,9 @@
+# This is a CODEOWNERS file. It defines who is responsible for different parts of the codebase.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# These owners will be the default owners for everything in the repo.
+# Unless a later match takes precedence, they will be requested for review when someone opens a pull request.
+* @nedap/healthcare-caren-developers
+
+# Security best practice to fully protect this repository against unauthorized changes.
+/.github/CODEOWNERS @nedap/healthcare-caren-developers
